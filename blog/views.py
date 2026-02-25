@@ -3,6 +3,7 @@ from django.shortcuts import render,redirect
 from blogs.models import Category,Blog
 from assignments.models import About
 from . forms import RegistrationForm
+from django.contrib.auth.forms import AuthenticationForm
 def home(request):
     featured_posts=Blog.objects.filter(is_featured=True,status='Published').order_by('updated_at')
     posts=Blog.objects.filter(is_featured=False,status='Published')
@@ -33,3 +34,10 @@ def register(request):
         'form':form,
     }
     return render(request,'register.html',context)
+
+def login(request):
+    form=AuthenticationForm()
+    context={
+        'form':form,
+    }
+    return render(request,'login.html',context)
