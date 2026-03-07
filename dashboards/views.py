@@ -58,6 +58,14 @@ def posts(request):
 
 def add_post(request):
     form=BlogPostForm()
+    if request.method =='POST':
+        form =BlogPostForm(request.POST,request.FILES)
+        if form.is_valid:
+            post=form.save(commit=False) #temporarily saving the form
+            post.author=request.user
+            post.save()
+            return redirect('posts')
+    
     context={
         'form':form,
     }
