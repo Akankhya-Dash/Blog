@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render,redirect
 from blogs.models import Category,Blog
 from django.contrib.auth.decorators import login_required
-from . forms import CategoryForm,BlogPostForm
+from . forms import AddUserForm, CategoryForm,BlogPostForm
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 # Create your views here.
@@ -104,3 +104,10 @@ def users(request):
         'users':users,
     }
     return render(request,'dashboard/users.html',context)
+
+def add_user(request):
+    form=AddUserForm()
+    context={
+        'form':form,
+    }
+    return render(request,'dashboard/add_user.html',context)
